@@ -19,4 +19,65 @@
     Vector2 point2 = {playerPos.x - (shipWidth / 2), playerPos.y + (shipHeight / 2)};
     // Right Point
     Vector2 point3 = {playerPos.x + (shipWidth / 2), playerPos.y + (shipHeight / 2)};
+5. Added movement and controls to the triangle
+//PLAYER MOVEMENT
+        // If Left arrow or A is pressed, decrease the player's position by their speed
+        if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
+        {
+            playerPos.x -= speed;
+        }
+        // If Right arrow or D is pressed, increase the player's position by their speed
+        if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
+        {
+            playerPos.x += speed;
+        }
+6. Added shooting
+ // SHOOT BULLETS
+        if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER))
+        {
+            for (int i = 0; i < MAX_BULLETS; i++)
+            {
+                if (!bullets[i].active)
+                {
+                    //sets the bullet spawn to the top of the triangle
+                    bullets[i].position = point1;
+                    bullets[i].active = true;
+                    break;
+                }
+            }
+        }
+
+        // UPDATE ACTIVE BULLETS
+        for (int i = 0; i < MAX_BULLETS; i++)
+        {
+            if (bullets[i].active)
+            {
+                //moves the bullet upwards based off the bullet speed variable
+                bullets[i].position.y -= bulletSpeed;
+                
+                //if the bullet goes off screen, it is deactivated
+                if (bullets[i].position.y < 0)
+                {
+                    bullets[i].active = false;
+                }
+            }
+        }
+
+  // Draw active bullets
+        for (int i = 0; i < MAX_BULLETS; i++)
+        {
+            if (bullets[i].active)
+            {
+                DrawCircleV(bullets[i].position, 4.0f, YELLOW);
+            }
+        }
+
+7. Added the aliens in
+
+8. Add Game Over
+
+9. Add Bullet Collisions
+
+10. Add an online leader board that is accessed??
+
     
