@@ -205,8 +205,8 @@ int main (void)
             // Creates a triangle using the points provided above
             DrawTriangle(point1, point2, point3, BLUE);
             
-            TextFormat("SCORE: %d", Score);
-            MeasureText("SCORE: 0000", fontsize);
+            //TextFormat("SCORE: %d", Score);
+            //MeasureText("SCORE: 0000", fontsize);
             
             // Draw active bullets
             for (int i = 0; i < MAX_BULLETS; i++)
