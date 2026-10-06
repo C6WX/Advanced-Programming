@@ -1,6 +1,19 @@
-#include "raylib.h"
+// 1. Windows networking and threading headers MUST come before Raylib
+#define WIN32_LEAN_AND_MEAN
+#define NOGDI             // Prevents Rectangle macro collision
+#define NOUSER            // Prevents CloseWindow / ShowCursor collisions
+#include <windows.h>
+#include <winhttp.h>
+#include <process.h>      // For background threading (_beginthread)
 
-//Defines the bullet array to track the active bullets on screen
+// 2. Include Raylib and C runtime headers
+#include "raylib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+// Defines the bullet array to track the active bullets on screen
 #define MAX_BULLETS 5
 typedef struct {
     Vector2 position;
@@ -14,19 +27,95 @@ typedef struct {
     bool active;
 } Enemy;
 
+// Shared global weather state between API background thread and game loop
+typedef struct {
+    float apiWindSpeed;    // Baseline wind speed fetched from API (km/h)
+    float currentDrift;    // Active smoothed pixel drift per frame
+    bool isFetching;       // Prevents launching multiple network threads
+} LiveWeather;
+
+static LiveWeather g_Weather = { 12.0f, 0.8f, false };
+
+// Background thread function that queries Open-Meteo without blocking game frames
+void FetchWeatherThread(void *param)
+{
+    (void)param; // Suppress -Wunused-parameter warning
+    g_Weather.isFetching = true;
+
+    // Short string chunks concatenated to avoid line-length truncation
+    char pathA[256] = {0};
+    strcat(pathA, "/v1/forecast?");
+    strcat(pathA, "latitude=51.5074&");
+    strcat(pathA, "longitude=-0.1278&");
+    strcat(pathA, "current_weather=true");
+
+    wchar_t pathW[256] = {0};
+    mbstowcs(pathW, pathA, strlen(pathA));
+
+    HINTERNET hSession = WinHttpOpen(L"SpaceInvaders/1.0", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+    if (hSession)
+    {
+        HINTERNET hConnect = WinHttpConnect(hSession, L"api.open-meteo.com", INTERNET_DEFAULT_HTTPS_PORT, 0);
+        if (hConnect)
+        {
+            HINTERNET hRequest = WinHttpOpenRequest(hConnect, L"GET", pathW, NULL, WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, WINHTTP_FLAG_SECURE);
+            if (hRequest)
+            {
+                if (WinHttpSendRequest(hRequest, WINHTTP_NO_ADDITIONAL_HEADERS, 0, WINHTTP_NO_REQUEST_DATA, 0, 0, 0) &&
+                    WinHttpReceiveResponse(hRequest, NULL))
+                {
+                    char buffer[4096] = {0};
+                    DWORD bytesRead = 0;
+                    WinHttpReadData(hRequest, buffer, sizeof(buffer) - 1, &bytesRead);
+
+                    // Strictly parse "windspeed":XX.X inside current_weather object
+                    char *currentWeatherPtr = strstr(buffer, "\"current_weather\"");
+                    if (!currentWeatherPtr) currentWeatherPtr = buffer;
+
+                    char *windPtr = strstr(currentWeatherPtr, "\"windspeed\":");
+                    if (!windPtr) windPtr = strstr(currentWeatherPtr, "\"wind_speed\":");
+
+                    if (windPtr)
+                    {
+                        windPtr += strlen("\"windspeed\":");
+                        while (*windPtr && (*windPtr < '0' || *windPtr > '9') && *windPtr != '-') windPtr++;
+                        
+                        float liveWind = (float)atof(windPtr);
+                        
+                        if (liveWind > 0.0f && liveWind < 150.0f) 
+                        {
+                            g_Weather.apiWindSpeed = liveWind;
+                        }
+                    }
+                }
+                WinHttpCloseHandle(hRequest);
+            }
+            WinHttpCloseHandle(hConnect);
+        }
+        WinHttpCloseHandle(hSession);
+    }
+
+    g_Weather.isFetching = false;
+}
+
 int main (void)
 {
+    // Fetch initial API data on background thread right at boot
+    _beginthread(FetchWeatherThread, 0, NULL);
+
     // Creates the window size and title
     InitWindow(800, 600, "Space_Invaders");
     
     // Sets the target FPS
     SetTargetFPS(60);
     
-    // Game over variable
+    // Game state variables
     bool gameOver = false;
+    int roundNum = 1; // Round counter
     
     //Score
     int Score = 0;
+    int fontSize = 20;
     
     // Sets the ship's height and width
     float shipHeight = 30.0f;
@@ -53,7 +142,7 @@ int main (void)
     
     //Enemy position, speed and size
     Enemy enemies[MAX_ENEMIES] = {0};
-    float enemySpeed = 2.0f; // positive moves right and negative moves left
+    int enemySpeed = 2; // positive moves right and negative moves left
     float dropDistance = 15.0f; // the amount the enemy drops after hitting a wall
     Vector2 enemySize = {30.0f, 20.0f};
     
@@ -69,9 +158,34 @@ int main (void)
         }
     }
 
+    // Timers for live real-time weather updates
+    float apiFetchTimer = 0.0f;
+    float liveGustTimer = 0.0f;
+
     // Create the game loop
     while (!WindowShouldClose())
     {  
+        float deltaTime = GetFrameTime();
+        apiFetchTimer += deltaTime;
+        liveGustTimer += deltaTime;
+
+        // 1. Refresh live weather data from API every 30 seconds asynchronously
+        if (apiFetchTimer >= 30.0f && !g_Weather.isFetching)
+        {
+            apiFetchTimer = 0.0f;
+            _beginthread(FetchWeatherThread, 0, NULL);
+        }
+
+        // 2. DYNAMIC REAL-TIME WIND TURBULENCE:
+        float baseDrift = g_Weather.apiWindSpeed * 0.12f; 
+        float liveGust = sinf(liveGustTimer * 2.0f) * 0.8f; 
+        
+        g_Weather.currentDrift = baseDrift + liveGust;
+
+        // HARD PLAYABILITY CLAMP: Keep drift noticeably visible (-2.2px to +2.2px)
+        if (g_Weather.currentDrift > 2.2f) g_Weather.currentDrift = 2.2f;
+        if (g_Weather.currentDrift < -2.2f) g_Weather.currentDrift = -2.2f;
+
         // Triangle points declared at outer scope so drawing can access them
         Vector2 point1 = {playerPos.x, playerPos.y - (shipHeight / 2)};
         Vector2 point2 = {playerPos.x - (shipWidth / 2), playerPos.y + (shipHeight / 2)};
@@ -89,6 +203,15 @@ int main (void)
             if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
             {
                 playerPos.x += speed;
+            }
+            
+            // DEBUG CHEAT: Press T to wipe out all enemies instantly for testing
+            if (IsKeyPressed(KEY_T))
+            {
+                for (int i = 0; i < MAX_ENEMIES; i++)
+                {
+                    enemies[i].active = false;
+                }
             }
 
             // KEEP PLAYER ON SCREEN
@@ -129,8 +252,11 @@ int main (void)
                     //moves the bullet upwards based off the bullet speed variable
                     bullets[i].position.y -= bulletSpeed;
                     
+                    // Apply dynamically changing real-time wind drift to active bullets
+                    bullets[i].position.x += g_Weather.currentDrift;
+                    
                     //if the bullet goes off screen, it is deactivated
-                    if (bullets[i].position.y < 0)
+                    if (bullets[i].position.y < 0 || bullets[i].position.x < 0 || bullets[i].position.x > 800)
                     {
                         bullets[i].active = false;
                     }
@@ -153,6 +279,38 @@ int main (void)
                     }
                 }
             } 
+
+            // CHECK IF ALL ENEMIES ARE DEFEATED
+            int activeEnemyCount = 0;
+            for (int i = 0; i < MAX_ENEMIES; i++)
+            {
+                if (enemies[i].active)
+                {
+                    activeEnemyCount++;
+                }
+            }
+
+            // RESPAWN ENEMY WAVE IF NO ACTIVE ENEMIES REMAIN
+            if (activeEnemyCount == 0)
+            {
+                roundNum++; // Increment wave counter
+                
+                // Keep movement direction intact while increasing magnitude
+                if (enemySpeed > 0) enemySpeed++;
+                else enemySpeed--;
+                
+                for (int row = 0; row < rows; row++)
+                {
+                    for (int col = 0; col < columns; col++)
+                    {
+                        int index = (row * columns) + col;
+                        enemies[index].position.x = startX + (col * spacingX);
+                        enemies[index].position.y = startY + (row * spacingY);
+                        enemies[index].size = enemySize;
+                        enemies[index].active = true;
+                    }
+                }
+            }
 
             // Collisions
             bool hitWall = false;
@@ -197,7 +355,7 @@ int main (void)
         BeginDrawing();
 
         // Clears the previous frame and gives a black background
-        ClearBackground(BLACK);
+        ClearBackground((Color){ 15, 20, 35, 255 });
                   
         if (!gameOver)
         {
@@ -205,9 +363,25 @@ int main (void)
             // Creates a triangle using the points provided above
             DrawTriangle(point1, point2, point3, BLUE);
             
-            //TextFormat("SCORE: %d", Score);
-            //MeasureText("SCORE: 0000", fontsize);
+            // Draw LIVE Real-Time Changing Weather HUD (Top Left)
+            DrawText(TextFormat("API BASE WIND: %.1f km/h", g_Weather.apiWindSpeed), 20, 20, 16, SKYBLUE);
+            DrawText(TextFormat("LIVE WIND DRIFT: %+.2f px/f", g_Weather.currentDrift), 20, 40, 16, YELLOW);
+
+            // Draw Centered Round HUD Header
+            const char* roundText = TextFormat("ROUND %d", roundNum);
+            int roundWidth = MeasureText(roundText, 22);
+            DrawText(roundText, (800 / 2) - (roundWidth / 2), 20, 22, GREEN);
+
+            // Calculates the text's width in pixels            
+            const char* scoreText = TextFormat("SCORE: %d", Score);
+            int textWidth = MeasureText(scoreText, fontSize);
             
+            // Changes the integer to string so that it can be used with DrawText and then displays the score at the set location
+            DrawText(scoreText, 800 - textWidth - 20, 20, fontSize, WHITE);
+            
+            // Draw Enemy Speed HUD (Bottom Left)
+            DrawText(TextFormat("ENEMY SPEED: %d px/f", abs(enemySpeed)), 20, 560, 16, RED);
+
             // Draw active bullets
             for (int i = 0; i < MAX_BULLETS; i++)
             {
@@ -228,7 +402,15 @@ int main (void)
         }
         else
         {
-            DrawText("GAME OVER", 280, 260, 40, RED);
+            // Display GAME OVER heading centered
+            const char* gameOverText = "GAME OVER!";
+            int gameOverWidth = MeasureText(gameOverText, 40);
+            DrawText(gameOverText, (800 / 2) - (gameOverWidth / 2), 240, 40, RED);
+
+            // Display FINAL SCORE directly below GAME OVER
+            const char* finalScoreText = TextFormat("FINAL SCORE: %d", Score);
+            int finalScoreWidth = MeasureText(finalScoreText, 24);
+            DrawText(finalScoreText, (800 / 2) - (finalScoreWidth / 2), 295, 24, WHITE);
         }
 
         // Finishes the frame and displays it
