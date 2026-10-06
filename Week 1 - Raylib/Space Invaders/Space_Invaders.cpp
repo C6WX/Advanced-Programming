@@ -1,10 +1,12 @@
-// 1. Windows networking and threading headers MUST come before Raylib
+// 1. Windows networking and threading headers MUST come before Raylib (Desktop only)
+#ifndef PLATFORM_WEB
 #define WIN32_LEAN_AND_MEAN
 #define NOGDI             // Prevents Rectangle macro collision
 #define NOUSER            // Prevents CloseWindow / ShowCursor collisions
 #include <windows.h>
 #include <winhttp.h>
 #include <process.h>      // For background threading (_beginthread)
+#endif
 
 // 2. Include Raylib and C runtime headers
 #include "raylib.h"
@@ -40,6 +42,8 @@ static LiveWeather g_Weather = { 12.0f, 0.8f, false };
 void FetchWeatherThread(void *param)
 {
     (void)param; // Suppress -Wunused-parameter warning
+
+#ifndef PLATFORM_WEB
     g_Weather.isFetching = true;
 
     // Short string chunks concatenated to avoid line-length truncation
@@ -96,12 +100,15 @@ void FetchWeatherThread(void *param)
     }
 
     g_Weather.isFetching = false;
+#endif
 }
 
 int main (void)
 {
-    // Fetch initial API data on background thread right at boot
+#ifndef PLATFORM_WEB
+    // Fetch initial API data on background thread right at boot (Desktop only)
     _beginthread(FetchWeatherThread, 0, NULL);
+#endif
 
     // Creates the window size and title
     InitWindow(800, 600, "Space_Invaders");
@@ -169,12 +176,14 @@ int main (void)
         apiFetchTimer += deltaTime;
         liveGustTimer += deltaTime;
 
-        // 1. Refresh live weather data from API every 30 seconds asynchronously
+#ifndef PLATFORM_WEB
+        // 1. Refresh live weather data from API every 30 seconds asynchronously (Desktop only)
         if (apiFetchTimer >= 30.0f && !g_Weather.isFetching)
         {
             apiFetchTimer = 0.0f;
             _beginthread(FetchWeatherThread, 0, NULL);
         }
+#endif
 
         // 2. DYNAMIC REAL-TIME WIND TURBULENCE:
         float baseDrift = g_Weather.apiWindSpeed * 0.12f; 
@@ -206,13 +215,13 @@ int main (void)
             }
             
             // DEBUG CHEAT: Press T to wipe out all enemies instantly for testing
-            if (IsKeyPressed(KEY_T))
-            {
-                for (int i = 0; i < MAX_ENEMIES; i++)
-                {
-                    enemies[i].active = false;
-                }
-            }
+            //if (IsKeyPressed(KEY_T))
+            //{
+                //for (int i = 0; i < MAX_ENEMIES; i++)
+                //{
+                    //enemies[i].active = false;
+                //}
+            //}
 
             // KEEP PLAYER ON SCREEN
             if (playerPos.x - (shipWidth / 2) < 0)
