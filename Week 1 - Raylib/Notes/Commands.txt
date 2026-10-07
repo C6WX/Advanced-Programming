@@ -1,0 +1,9 @@
+1. set PATH=C:\raylib\w64devkit\bin;%PATH%
+C:\emsdk\emsdk_env.bat
+
+2. cd "C:\Github\Advanced-Programming\Week 1 - Raylib\Space Invaders"
+if not exist web mkdir web
+
+3. emcc -o web/index.html Space_Invaders.cpp C:/raylib/raylib/src/rcore.c C:/raylib/raylib/src/rshapes.c C:/raylib/raylib/src/rtextures.c C:/raylib/raylib/src/rtext.c C:/raylib/raylib/src/rmodels.c C:/raylib/raylib/src/raudio.c --preload-file Laser.wav --preload-file Explosion.wav --preload-file GameOver.wav --preload-file BackgroundMusic.wav -Os -Wall -I C:/raylib/raylib/src -s USE_GLFW=3 -s ASYNCIFY -DPLATFORM_WEB -DGRAPHICS_API_OPENGL_ES2 --shell-file C:/raylib/raylib/src/shell.html
+
+python -m http.server 8000
