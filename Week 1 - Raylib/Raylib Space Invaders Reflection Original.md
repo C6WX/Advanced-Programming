@@ -1,0 +1,19 @@
+# Raylib Space Invaders GDD
+
+## Approach 186 words
+My approach to this task started with me deciding my game which i knew was going to be Space Invaders as I felt this game was simple enough to be created as my first project in Raylib, whilst also being very open to new features and implementations that could allow it to fulfill all task goals. <br>
+The main goal that I was focussed on was how I was going to implement a web request feature and integrate the data retrieved from that request. My original plan was to create a leaderboard website that would display the highest scorers and update with new high scores are achieved. To cover everything I was also going to have it retrieve the top scores and display in during the game over screen to make sure I completely covered the task. <br>
+However during development, I looked into another idea which was the one I ended up using. This idea was accessing the current weather report and using the levels of wind in real life to affect the player's bullets' direction within the game, as if there was wind in the game. 
+
+## Result 222 words
+Personally, I am very proud of my final result as it contains many more features and mechanics than I had originally planned it to have. Throughout development of the game I was adding more and more features such as score, which I wasn't going to add after changing my mind on what API feature I was going to use, a round system that spawned more enemies once the previous wave was defeated and increasing enemy difficulty by incrementing the speed that they move after each wave. I definately did more than I originally planned to but I felt like this was because I was enjoying programming in C again. <br>
+Once I had finished developing the game, I discovered that the game needs audio which meant that I needed to find audio files to use, add in the new code and then repackage and reupload the game to Itch.io. I added a bullet sound for whenever the player shot, background music, explosion sounds for when an enemy dies and a game over sound for when the player loses. This wasn't too difficult to implement and didn't take long but the hardest part was making sure all the code needed, was added as to add audio you need to make sure to preload and unload it so that it get into your final game. <br>
+
+## Reflection 272 words
+I learnt a lot throughout this task as it has been a very long while since I have had to write code, plus I have never used raylib or notepad++ when coding. I think the main thing I learnt from this was how to make a game without an engine and that games can be simple whilst still be entertaining and full of features. <br>
+The main challenge that I came across when attempting to package and upload this game was getting it working locally before uploading it. The problem was that when the game was hosted, it would forever say downloading but the game would never load. After lots and lots of trial and error, the issue turned out to be the prompt used to package the game. To fix this, I ran to prompt through Gemini many times until it finally gave me a prompt that worked without any errors. <br>
+Another challenge had to be during the implementation of the wind system. To get this system working, I was constantly having to change code and variables until they worked perfectly with the combat. The issue that I fixed was that the wind speed and variables were too powerful for the bullets so they would just fly off screen and could not hit any enemies. After some refinement, the bullets now are dragged towards one side based on the wind speed whilst still heading upwards to hit enemies.<br>
+My career will definitely benefit from this task as it has shown me a completely new way of programming quick and simple games that can increase my programming knowledge whilst also expanding my portfolio.
+
+## Gameplay Video
+https://youtu.be/KsvIUCqcStg?si=YQ2XMPAYP3Wjm0Wo
