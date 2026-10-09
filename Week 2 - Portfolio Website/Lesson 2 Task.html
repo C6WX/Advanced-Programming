@@ -1,0 +1,167 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week 2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="portfolio-website-with-auto-documentation">Portfolio Website with Auto Documentation</h1>
+<p><strong>Estimated Time:</strong> 3–6 hours</p>
+<p><strong>Submission:</strong> Github</p>
+<h2 id="task-brief">Task Brief</h2>
+<p>Create a polished <strong>personal portfolio website</strong> hosted on <strong>GitHub Pages</strong>.</p>
+<p>Your site should:</p>
+<ul>
+<li>Contain a landing page with your name, a short bio, and a way to contact you.</li>
+<li>Include at least one project page with a short description and (optional) screenshot or link.</li>
+<li>Use consistent visual styling (basic CSS or theme).</li>
+<li>Generate <strong>automatic documentation</strong> from a small code sample (for example, using Doxygen, JSDoc, or pdoc).</li>
+<li>Deploy the site and the generated docs to <strong>GitHub Pages</strong> automatically using <strong>GitHub Actions</strong>.</li>
+</ul>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><code>index.html</code> and any supporting HTML/CSS/JS files for the portfolio site.</p>
+</li>
+<li>
+<p>A <code>src/</code> folder with a small documented code sample.</p>
+</li>
+<li>
+<p>A GitHub Actions workflow file (<code>.github/workflows/pages.yml</code>) that:</p>
+<ul>
+<li>Generates documentation from the code sample.</li>
+<li>Publishes the site (including generated docs) to GitHub Pages.</li>
+</ul>
+</li>
+<li>
+<p>A <code>.gif</code> or screenshot showing your portfolio site live in the browser.</p>
+</li>
+<li>
+<p>A 400-500 Words dev log that is a critical reflection on the task and learned lessons. This should include what you planned to do, how you did it, what changes/adaptations you had to make, and what valuable skills/knowledge did you gain.</p>
+</li>
+<li>
+<p>A <code>README.md</code> including:</p>
+<ul>
+<li>The live GitHub Pages URL.</li>
+<li>A short description of your site and its purpose.</li>
+<li>Instructions to build the docs locally (e.g., <code>doxygen Doxyfile</code> or <code>npx jsdoc src</code>).</li>
+</ul>
+</li>
+<li>
+<p>A <code>docs/setup.md</code> describing:</p>
+<ul>
+<li>How the GitHub Actions workflow works.</li>
+<li>How GitHub Pages is enabled in your repository.</li>
+<li>Where the generated docs appear on the live site.</li>
+</ul>
+</li>
+</ul>
+<h2 id="useful-links">Useful Links</h2>
+<p><a href="https://docs.github.com/en/actions">https://docs.github.com/en/actions</a>
+<a href="https://graphite.dev/guides/github-actions-beginner-guide">https://graphite.dev/guides/github-actions-beginner-guide</a>
+<a href="https://www.doxygen.nl/manual/starting.html">https://www.doxygen.nl/manual/starting.html</a>
+<a href="https://www.doxygen.nl/manual/doxygen_usage.html">https://www.doxygen.nl/manual/doxygen_usage.html</a>
+<a href="https://www.doxygen.nl/manual/docblocks.html">https://www.doxygen.nl/manual/docblocks.html</a>
+<a href="https://www.geeksforgeeks.org/cpp/doxygen-cpp-documentation">https://www.geeksforgeeks.org/cpp/doxygen-cpp-documentation</a></p>
+
+</body>
+</html>
