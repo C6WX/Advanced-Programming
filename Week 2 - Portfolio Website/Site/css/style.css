@@ -1,15 +1,19 @@
-﻿/* Color Palette Variables */
+﻿/* Custom Palette (High Contrast): Tiger Orange, Golden Orange, Bright Amber, Light Sea Green, Pale Sky */
 :root {
-    --bg-color: #f4f6f9;
-    --card-bg: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --accent-color: #007bff;
-    --accent-hover: #0056b3;
-    --secondary-btn: #6c757d;
-    --secondary-btn-hover: #5a6268;
-    --nav-bg: #1e293b;
-    --border-color: #e2e8f0;
+    --bg-color: #090e14;             /* Very dark slate for main background */
+    --card-bg: #003636;           /* Deepened Sea Green surface (high contrast for text) */
+    --card-bg-hover: #004d4d;     /* Slightly lighter Sea Green hover */
+    --text-primary: #ffffff;      /* Pure white body text for maximum readability */
+    --text-secondary: #EFCA08;    /* Bright Amber subheadings & tags */
+    --text-muted: #BBDEF0;        /* Pale Sky for soft subtext */
+    --accent-color: #F08700;      /* Tiger Orange primary buttons */
+    --accent-hover: #d17500;      /* Deep Tiger Orange hover */
+    --secondary-btn: #F49F0A;     /* Golden Orange secondary buttons */
+    --secondary-btn-hover: #d68900;
+    --nav-bg: #05080d;            /* Near-black header/footer fill */
+    --border-color: #00A6A6;      /* Light Sea Green borders & outlines */
+    --border-accent: #F08700;     /* Tiger Orange highlights */
+    --glow-color: rgba(240, 135, 0, 0.3); /* Warm orange glow */
 }
 
 body {
@@ -26,19 +30,21 @@ header {
     color: #ffffff;
     padding: 1.5rem 0;
     text-align: center;
+    border-bottom: 3px solid var(--border-accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 header nav a {
-    color: #cbd5e1;
+    color: var(--text-muted);
     text-decoration: none;
     margin: 0 15px;
     font-weight: 600;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 header nav a:hover {
-    color: #ffffff;
-    text-decoration: underline;
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--glow-color);
 }
 
 main {
@@ -48,8 +54,20 @@ main {
     padding-bottom: 5rem;
 }
 
+h1 {
+    color: #ffffff;
+    margin: 0;
+}
+
 h2 {
-    color: var(--text-primary);
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section-desc {
+    color: var(--text-muted);
+    margin-top: -0.75rem;
     margin-bottom: 1.5rem;
 }
 
@@ -59,8 +77,20 @@ h2 {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.bio p, .contact p {
+    color: var(--text-primary);
+}
+
+.section-divider {
+    border: 0;
+    height: 2px;
+    background: var(--border-accent);
+    margin: 3rem 0;
 }
 
 /* Card Grid Layout */
@@ -77,14 +107,16 @@ h2 {
     background: var(--card-bg);
     border-radius: 8px;
     padding: 1.25rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background: var(--card-bg-hover);
+    border-color: var(--border-accent);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 12px var(--glow-color);
 }
 
 .project-img {
@@ -93,24 +125,34 @@ h2 {
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 1rem;
-    background-color: #e2e8f0;
+    background-color: var(--nav-bg);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.project-img:hover {
+    opacity: 0.9;
+    border-color: var(--border-accent);
 }
 
 .card-content {
     flex-grow: 1;
+    color: var(--text-primary);
 }
 
 .project-card h3 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: #ffffff;
 }
 
 .tech-stack {
     font-size: 0.85rem;
-    color: var(--accent-color);
+    color: var(--text-secondary);
     margin-top: 0;
     margin-bottom: 0.75rem;
+    font-weight: 600;
 }
 
 /* Action Buttons */
@@ -124,34 +166,110 @@ h2 {
     display: inline-block;
     padding: 8px 14px;
     background: var(--accent-color);
-    color: #ffffff;
+    color: #000000;
     text-decoration: none;
     border-radius: 4px;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
-    transition: background-color 0.2s ease;
+    border: 1px solid var(--accent-color);
+    transition: all 0.2s ease;
 }
 
 .button:hover {
     background: var(--accent-hover);
+    color: #ffffff;
+    box-shadow: 0 0 10px var(--glow-color);
 }
 
 .button.secondary {
     background-color: var(--secondary-btn);
+    color: #000000;
+    border: 1px solid var(--secondary-btn);
 }
 
 .button.secondary:hover {
     background-color: var(--secondary-btn-hover);
+    border-color: var(--text-secondary);
+    color: #ffffff;
 }
 
 footer {
     text-align: center;
     padding: 1rem 0;
     background: var(--nav-bg);
-    color: #94a3b8;
+    color: var(--text-muted);
     position: fixed;
     bottom: 0;
     width: 100%;
     font-size: 0.9rem;
+    border-top: 3px solid var(--border-accent);
+}
+
+/* Lightbox Modal Overlay */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: rgba(9, 14, 20, 0.95);
+    backdrop-filter: blur(8px);
+}
+
+.modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    display: block;
+    max-width: 85vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 2px solid var(--border-accent);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+    animation: zoomIn 0.2s ease-out;
+}
+
+#modal-caption {
+    margin-top: 15px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    color: var(--text-secondary);
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-close:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
