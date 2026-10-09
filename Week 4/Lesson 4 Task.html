@@ -1,0 +1,168 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week4.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="qa--telemetry-mini-project">QA &amp; Telemetry Mini-Project</h1>
+<p><strong>Estimated Time:</strong> 3–6 hours</p>
+<p><strong>Submission:</strong> GitHub </p>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Design and run a <strong>user testing and telemetry system</strong> for your <strong>Final Major Project (FMP) prototype</strong>.
+This task focuses on combining <strong>player feedback</strong> (QA testing) with <strong>performance or gameplay telemetry</strong>.</p>
+<p>Your system should:</p>
+<ul>
+<li>
+<p>Include a <strong>user testing survey</strong> that collects:</p>
+<ul>
+<li><strong>Consent</strong> to participate and share data</li>
+<li><strong>Software version</strong> and <strong>platform</strong> tested</li>
+<li><strong>Quantitative data</strong> (e.g. ratings, scores, difficulty, FPS)</li>
+<li><strong>Qualitative feedback</strong> (e.g. comments, suggestions, bugs)</li>
+</ul>
+</li>
+<li>
+<p>Implement <strong>one technical data collection feature</strong>, such as:</p>
+<ul>
+<li>Benchmarking <strong>performance metrics</strong> (FPS, memory, CPU, frame time) written to a log</li>
+<li>Collecting <strong>gameplay telemetry</strong> (player deaths, levels completed, items used) to a file or backend</li>
+<li>A <strong>simple Supabase / JSON logger</strong> that records playtest sessions</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><strong>Testing system and implementation</strong> (source code + any survey forms)</p>
+</li>
+<li>
+<p><strong>Media evidence:</strong></p>
+<ul>
+<li><code>.gif</code> or short video showing data being collected or visualised</li>
+<li>Screenshot(s) of the survey and/or log output</li>
+</ul>
+</li>
+<li>
+<p><strong>500-word technical commentary</strong> (<code>COMMENTARY.md</code>) describing:</p>
+<ul>
+<li>How you collected player feedback and consent</li>
+<li>What telemetry or performance data was logged</li>
+<li>Tools, frameworks, or services used (e.g. Supabase, Unity Analytics, Unreal Insights)</li>
+<li>How this data could inform QA and game improvements</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="optional-ideas">Optional Ideas</h2>
+<ul>
+<li>Use <strong>Google Forms</strong>, <strong>Typeform</strong>, or an <strong>in-game survey UI</strong> for user testing.</li>
+<li>Create a simple <strong>CSV or JSON export</strong> of player telemetry.</li>
+<li>Automate FPS logging with <strong>Unity’s Profiler</strong>, <strong>Unreal Insights</strong>, or a custom script.</li>
+<li>Combine telemetry with <strong>backend storage</strong> for comparing multiple playtest sessions.</li>
+<li>Visualise your data (e.g. frame rate graphs, heatmaps, or player stats) with something like <a href="https://matplotlib.org/">Matplotlib / Python</a>.</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week8.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="multiplayer-mini-project">Multiplayer Mini-Project</h1>
+<p><strong>Estimated Time:</strong> 3–6 hours</p>
+<p><strong>Submission:</strong> GitHub</p>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Design and implement a <strong>multiplayer micro-game</strong> within your chosen engine.
+This task focuses on <strong>using built-in networking tools</strong> and collaborating with at least one other student over a <strong>local network</strong>.</p>
+<p>Your system should:</p>
+<ul>
+<li>
+<p>Implement <strong>multiplayer functionality</strong> using the networking features available in your engine.</p>
+</li>
+<li>
+<p>Demonstrate one of the following:</p>
+<ul>
+<li><strong>Unity:</strong> Netcode for GameObjects, NGO with Relay, or Mirror for LAN play.</li>
+<li><strong>Unreal:</strong> Unreal’s built-in replication system, Blueprints networking, or Gameplay Ability System replication.</li>
+<li><strong>Godot / Other Engines:</strong> built-in high-level multiplayer APIs supporting LAN play.</li>
+</ul>
+</li>
+<li>
+<p>Include at least one of these multiplayer game features:</p>
+<ul>
+<li><strong>Shared game state</strong> (e.g. score, timer, health).</li>
+<li><strong>Player actions replicated over the network</strong> (movement, interaction, combat, pickups).</li>
+<li><strong>A micro-game loop</strong> such as tag, racing, arena duel, obstacle challenge, or co-op puzzle.</li>
+</ul>
+</li>
+<li>
+<p>Log relevant performance or telemetry data such as:</p>
+<ul>
+<li><strong>Ping / latency</strong></li>
+<li><strong>Packet loss or disconnect events</strong></li>
+<li><strong>Tick rate or replication frequency</strong></li>
+<li><strong>Platform and hardware used during testing</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><strong>Media evidence:</strong></p>
+<ul>
+<li><code>.gif</code> or short video demonstrating the multiplayer game functioning with two players.</li>
+<li>Screenshot(s) of the network session, replicated actions, or debug overlays (ping, net stats).</li>
+</ul>
+</li>
+<li>
+<p><strong>500-word technical commentary</strong> (<code>COMMENTARY.md</code>) describing:</p>
+<ul>
+<li>How networking was implemented or configured.</li>
+<li>How players connect and what parts of the game are replicated.</li>
+<li>Tools, frameworks, or APIs used (e.g. Netcode for GameObjects, Unreal Replication, Godot MultiplayerAPI).</li>
+<li>How collaboration was carried out during development and playtesting.</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>

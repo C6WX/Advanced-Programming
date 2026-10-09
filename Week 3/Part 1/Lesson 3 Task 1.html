@@ -1,0 +1,148 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week3-1.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="narrative-systems-mini-project">Narrative Systems Mini-Project</h1>
+<p><strong>Estimated Time:</strong> 1–2 hours</p>
+<p><strong>Submission:</strong> GitHub</p>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Create a <strong>text-based, narrative-driven story game</strong> with <strong>player choices</strong> using an <strong>online compiler</strong>:</p>
+<ul>
+<li><a href="https://www.onlinegdb.com/online_c++_compiler">OnlineGDB (C++)</a></li>
+<li><a href="https://www.programiz.com/csharp-programming/online-compiler/">Programiz (C#)</a></li>
+</ul>
+<p>Your story should:</p>
+<ul>
+<li>Include <strong>branching paths or outcomes</strong> (e.g., multiple endings).</li>
+<li>Use a <strong>data structure</strong> such as a <strong>tree, graph, or linked list</strong> to manage story flow or choices.</li>
+<li>Include <strong>input-driven decisions</strong> (typed choices, numbered options, etc.).</li>
+<li>Print text clearly, with small pauses or formatting for readability.</li>
+</ul>
+<p>You may base your story on <strong>original fiction</strong> or a <strong>mystery/survival scenario</strong> — be creative but concise.</p>
+<hr>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p>A single <strong>source file</strong> (<code>main.cpp</code> or <code>Program.cs</code>) that runs correctly in the online compiler.</p>
+</li>
+<li>
+<p>Clear <strong>code comments</strong> explaining your data structure and logic.</p>
+</li>
+<li>
+<p>A short <strong>GIF or video</strong> showing your program running.</p>
+</li>
+<li>
+<p>A 400-500 Words dev log that is a critical reflection on the task and learned lessons. This should include what you planned to do, how you did it, what changes/adaptations you had to make, and what valuable skills/knowledge did you gain.</p>
+</li>
+<li>Which data structure you used and why</li>
+<li>How player choices are stored and navigated</li>
+<li>What challenges you faced in implementing the narrative logic</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>

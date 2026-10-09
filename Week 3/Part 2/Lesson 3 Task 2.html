@@ -1,0 +1,153 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="procedural-systems-mini-project">Procedural Systems Mini-Project</h1>
+<p><strong>Estimated Time:</strong> 3–6 hours</p>
+<p><strong>Submission:</strong> GitHub </p>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Create a small <strong>interactive prototype</strong> that demonstrates a <strong>procedural system</strong> or algorithm.
+Choose <strong>one</strong> of the following options:</p>
+<ul>
+<li><strong>Procedural Audio</strong> — Generate dynamic music or ambience using <strong>FMOD</strong>, <strong>Wwise</strong>, or <strong>MetaSounds</strong>.</li>
+<li><strong>Wave Function Collapse</strong> — Implement a simple level, texture, or pattern generator using <strong>WFC</strong>.</li>
+<li><strong>Procedural Texture</strong> — Create a tool or script that generates <strong>textures or height maps</strong> (e.g., layered noise, gradients).</li>
+<li><strong>Sorting Algorithm / Leaderboard</strong> — Implement and visualise a sorting algorithm for a <strong>scoreboard or leaderboard</strong>, with <strong>persistent data</strong> (e.g. PlayerPrefs, JSON, Supabase, or Blueprints).</li>
+</ul>
+<p>You may use any engine or framework (Unity, Unreal, Godot, Raylib, Python, etc.).</p>
+<hr>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><strong>Working prototype</strong> (source code + build if applicable)</p>
+</li>
+<li>
+<p><strong>Media evidence:</strong></p>
+<ul>
+<li><code>.gif</code> or short video of the system in action</li>
+<li>Audio stems/recordings (if applicable)</li>
+<li>Screenshots or generated assets</li>
+</ul>
+</li>
+<li>
+<p><strong>500-word technical commentary</strong> (<code>COMMENTARY.md</code>) describing:</p>
+<ul>
+<li>How your system works</li>
+<li>Tools, algorithms, or APIs used</li>
+<li>What is procedural or generative about your approach</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="optional-ideas">Optional Ideas</h2>
+<ul>
+<li>Use real-time input (e.g. mouse, sound, data) to drive generation.</li>
+<li>Combine two procedural systems (e.g. WFC + sound variation).</li>
+<li>Visualise your algorithm’s process (e.g. sorting steps, texture layers).</li>
+</ul>
+
+</body>
+</html>

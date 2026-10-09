@@ -1,0 +1,197 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week5.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="parallel-processing-mini-project-or-audio-middleware-mini-project">Parallel Processing Mini-Project OR Audio Middleware Mini-Project</h1>
+<p><strong>Estimated Time:</strong> 3–6 hours</p>
+<p><strong>Submission:</strong> GitHub </p>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Design and implement a <strong>parallel computation system</strong> to process <strong>image data</strong> in your chosen game engine.
+This task focuses on using <strong>multithreading or job systems</strong> to achieve high-performance pixel analysis.</p>
+<p>Your system should:</p>
+<ul>
+<li>
+<p>Load an image or texture from disk.</p>
+</li>
+<li>
+<p>Calculate the <strong>sum of all red (R) channel values</strong> of an image using:</p>
+<ul>
+<li><strong>Unity:</strong> the <strong>Jobs System</strong> with <strong>Burst Compilation</strong> for maximum performance.</li>
+<li><strong>Unreal:</strong> the <strong>ParallelFor</strong> or <strong>TaskGraph</strong> system for multithreaded processing.</li>
+</ul>
+</li>
+<li>
+<p>Log <strong>Execution Time</strong></p>
+</li>
+</ul>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><strong>Implementation files</strong> (Unity project or Unreal C++/Blueprint project).</p>
+</li>
+<li>
+<p><strong>Media evidence:</strong></p>
+<ul>
+<li><code>.gif</code> or short video showing the computation and log results.</li>
+<li>Screenshot(s) of the survey and log output.</li>
+</ul>
+</li>
+<li>
+<p><strong>500-word technical commentary</strong> (<code>COMMENTARY.md</code>) describing:</p>
+<ul>
+<li>How multithreading or jobs were implemented.</li>
+<li>What benchmarking or telemetry data was collected.</li>
+<li>Tools, frameworks, or APIs used (e.g. Unity Burst, Unreal ParallelFor).</li>
+<li>How performance results could inform optimisation.</li>
+</ul>
+</li>
+</ul>
+<h2 id="optional-ideas">Optional Ideas</h2>
+<ul>
+<li>Compare single-thread vs multithreaded performance.</li>
+<li>Visualise execution time using a simple chart or external tool.</li>
+<li>Export telemetry to CSV or JSON for further analysis.</li>
+<li>Extend the system to process multiple images or colour channels concurrently.</li>
+</ul>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Integrate a professional <strong>audio middleware system</strong> into your <strong>game engine of choice</strong>, and demonstrate it in a <strong>fully built project</strong> (e.g. Windows build).</p>
+<p>Your system should:</p>
+<ul>
+<li>Integrate either <strong>FMOD</strong> or <strong>Wwise</strong> into your project.</li>
+<li>Create and trigger a <strong>sound event</strong> (e.g. background music, sound effect, or interaction cue).</li>
+<li>Ensure the event plays correctly within the <strong>built version</strong> of the game.</li>
+</ul>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><strong>Integrated project</strong> (FMOD/Wwise implemented and playable).</p>
+</li>
+<li>
+<p><strong>Media evidence:</strong></p>
+<ul>
+<li><code>.gif</code> or short video demonstrating the audio event in a built project.</li>
+</ul>
+</li>
+<li>
+<p><strong>500-word technical commentary</strong> (<code>COMMENTARY.md</code>) describing:</p>
+<ul>
+<li>How FMOD or Wwise was integrated.</li>
+<li>What event(s) were triggered and logged.</li>
+<li>How you validated the middleware in a packaged build.</li>
+</ul>
+</li>
+</ul>
+<h2 id="optional-ideas">Optional Ideas</h2>
+<ul>
+<li>Add multiple events or adaptive audio based on gameplay state.</li>
+<li>Use middleware profiling tools to monitor real-time performance.</li>
+<li>Log additional data such as listener position, sound radius, or trigger count.</li>
+<li>Compare the middleware’s CPU or memory usage to the engine’s native audio system.</li>
+</ul>
+
+</body>
+</html>

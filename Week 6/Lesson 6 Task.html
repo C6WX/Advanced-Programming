@@ -1,0 +1,171 @@
+<script class="bb-embedded-html bb-auto-resize" type="text/javascript">
+  document.documentElement.style.height = 0;
+  var resizeFunc = () => {
+    var height = document.documentElement.scrollHeight;
+    var source = new URL(document.referrer).origin;
+    var w = window;
+    while (w !== top) {
+      w = w.parent;
+      w.postMessage({ type: 'bb-auto-resize', height }, source);
+    }
+  }
+  window.addEventListener('load', resizeFunc);
+  window.addEventListener('resize', resizeFunc);
+</script><!DOCTYPE html>
+<html>
+<head>
+<title>Week8.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+<link rel="stylesheet" href="file:///home/assad/Documents/UCA-Notes/markdown-pdf-uca.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="artificial-intelligence-integration-mini-project">Artificial Intelligence Integration Mini-Project</h1>
+<p><strong>Estimated Time:</strong> 3–6 hours</p>
+<p><strong>Submission:</strong> GitHub </p>
+<hr>
+<h2 id="task-brief">Task Brief</h2>
+<p>Design and implement an <strong>AI-powered feature</strong> within your chosen project.
+This task focuses on <strong>integrating machine learning or generative AI</strong> locally or within your chosen engine.</p>
+<p>Your system should:</p>
+<ul>
+<li>
+<p>Either <strong>load and run a local AI model</strong> using a framework such as <strong>Ollama</strong>, <strong>TensorFlow</strong>, or <strong>ONNX</strong>, <strong>or</strong> implement an AI system directly inside your project.</p>
+</li>
+<li>
+<p>Demonstrate one of the following:</p>
+<ul>
+<li><strong>Unity / Unreal:</strong> integration of an AI system (e.g. NPC behaviour, procedural generation, dialogue, or adaptive gameplay).</li>
+<li><strong>Generative AI:</strong> use AI to create <strong>images, textures, models, sound, or code</strong> used within your project.</li>
+<li><strong>Local AI Deployment:</strong> run a <strong>local model via Ollama</strong> (e.g. Llama 3, Mistral, Phi-3) and communicate with it through a script or plugin.</li>
+</ul>
+</li>
+<li>
+<p>Log relevant performance or telemetry data such as:</p>
+<ul>
+<li><strong>Model name and version</strong></li>
+<li><strong>Inference time</strong> or <strong>response time</strong></li>
+<li><strong>Number of tokens / samples generated</strong></li>
+<li><strong>Platform and hardware used</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>
+<p><strong>Implementation files</strong> (Unity project, Unreal project, or standalone AI demo).</p>
+</li>
+<li>
+<p><strong>Media evidence:</strong></p>
+<ul>
+<li><code>.gif</code> or short video demonstrating the AI feature or model in action.</li>
+<li>Screenshot(s) of the model output, logs, or in-game integration.</li>
+</ul>
+</li>
+<li>
+<p><strong>500-word technical commentary</strong> (<code>COMMENTARY.md</code>) describing:</p>
+<ul>
+<li>How the AI model or system was implemented or connected.</li>
+<li>What data was processed or generated.</li>
+<li>Tools, frameworks, or APIs used (e.g. Ollama, TensorFlow, Hugging Face, Unity ML-Agents, Unreal ML Deformer).</li>
+<li>How AI enhanced gameplay, creativity, or production workflow.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="optional-ideas">Optional Ideas</h2>
+<ul>
+<li>Compare <strong>local vs cloud-based</strong> model performance.</li>
+<li>Use a <strong>chat or prompt system</strong> to drive gameplay interactions or procedural generation.</li>
+<li>Visualise <strong>model performance</strong> (e.g. inference time graph or heatmap).</li>
+<li>Train a simple model to influence in-game systems (e.g. adaptive difficulty or player behaviour prediction).</li>
+<li>Evaluate the <strong>ethical and creative implications</strong> of AI use in your project (e.g. bias, authorship, originality).</li>
+</ul>
+
+</body>
+</html>
