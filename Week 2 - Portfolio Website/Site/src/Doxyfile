@@ -1,0 +1,6 @@
+﻿PROJECT_NAME           = "Portfolio Auto Docs"
+OUTPUT_DIRECTORY       = doxygen_output
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+INPUT                  = .

@@ -1,0 +1,47 @@
+﻿name: Deploy Portfolio and Doxygen to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen -y
+
+      - name: Generate Doxygen Documentation
+        run: |
+          cd src
+          doxygen Doxyfile
+
+      - name: Prepare Site Payload
+        run: |
+          mkdir _site
+          cp index.html projects.html _site/
+          cp -r css _site/
+          cp -r src/doxygen_output/html _site/docs
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
