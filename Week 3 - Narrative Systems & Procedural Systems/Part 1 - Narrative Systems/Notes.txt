@@ -1,0 +1,25 @@
+// Online C# compiler (editor) for free
+// Write and run C# online using this editor.
+
+using System;
+
+ class Program
+    {
+     
+        static void Main()
+        {
+            Console.WriteLine("Boris: You're finally awake. It is time, are you ready for to do this?");
+            Console.WriteLine("*To make a choice, type and enter the number next to your selection.*");
+            Console.WriteLine("Are you ready to head out? | 1.Yes | 2.No");
+            string HeadOut = "";
+            HeadOut = Console.ReadLine();
+            if (HeadOut == "1")
+            {
+                Console.WriteLine("John: The timing is perfect to rob the jewelry store. Just need to decide the entrance. ");
+            }
+            else if (HeadOut == "2")
+            {
+                Console.WriteLine("You went back to sleep and the crew did the job without you. They were all arrested without your help. THE END.");
+            }
+        }
+    }
