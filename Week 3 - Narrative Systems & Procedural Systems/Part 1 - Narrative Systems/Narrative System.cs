@@ -5,7 +5,8 @@ class Program
 {
     static void Main()
     {
-       DialogueLine line0 = new DialogueLine("Boris: You're finally awake. It is time, are you ready for the job?");
+        // All the dialogue lines in order
+        DialogueLine line0 = new DialogueLine("Boris: You're finally awake. It is time, are you ready for the job?");
         DialogueLine line1 = new DialogueLine("TO MAKE A CHOICE, YOU NEED TO INPUT THE NUMBER NEXT TO THE OPTION.");
         DialogueLine line2 = new DialogueLine("Are you ready to head out?\nOption 1: Yes\nOption 2: No", hasChoice: true);
         DialogueLine line3 = new DialogueLine("You went back to sleep and the crew did the job without you. They all died without your help. THE END.");
@@ -47,6 +48,7 @@ class Program
         DialogueLine line36 = new DialogueLine("You and the whole crew managed to get away with bags full of jewels. THE END");
         DialogueLine line37 = new DialogueLine("She sets off the silent alarm. As you leave, the police arrive at the door. Everyone is arrested. THE END.");
         
+        // Adds all the dialogue lines in order to the list
         List<DialogueLine> dialogueList = new List<DialogueLine> 
         { 
             line0, line1, line2, line3, line4, line5, line6, line7, line8, line9,
@@ -55,6 +57,7 @@ class Program
             line30, line31, line32, line33, line34, line35, line36, line37
         };
 
+        //Displays each line in order by adding one onto the integer to move to the next item on the list
         for (int i = 0; i < dialogueList.Count; i++)
         {
             dialogueList[i].PrintSpeech();
@@ -65,8 +68,10 @@ class Program
                 return;
             }
 
+            // Allows an input for each line that has the HasChoice boolean set to true
             if (dialogueList[i].HasChoice)
             {
+                // reads the player's input and sets it as the choice variable
                 string choice = Console.ReadLine();
 
                 if (choice == "1")
@@ -77,7 +82,7 @@ class Program
                     }
                     else if (i == 5)
                     {
-                        // Main Entrance chosen -> Show line6 and terminate
+                        dialogueList[6].PrintSpeech();
                         return;
                     }
                     else if (i == 11)
@@ -187,6 +192,7 @@ public class DialogueLine
     {
         Console.WriteLine(Speech);
 
+        //Displays each of the ending text that comes after an ending line that needs it
         foreach (string endingText in Endings)
         {
             Console.WriteLine(endingText);
