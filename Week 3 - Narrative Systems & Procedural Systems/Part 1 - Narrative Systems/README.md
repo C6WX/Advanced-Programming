@@ -1,7 +1,12 @@
 ## Which data structure you used and why
-
+I used three different data structures when programming this narrative adventure. <br>
+The first is a dynamic list which is used to store every DialogueLine object in order. This was used to keep all the lines in a sequential order, preserving the exact order of dialogue. <br>
+The second data structure used is a class object that contains all attributes for a single dialogue line. I used this to easily bundle together each lines properties - specifically the spoken text and the HasChoice boolean. <br>
+The final data structure used is a nested list. This is used for one dialogue option near the start and allows a single dialogue line to hold multiple optional lines of text without needing to create separate DialogueLine entries in the main list. <br>
 
 ## How player choices are stored and navigated
-
+Player choices are stored in a temporary string variable called choice. When a player inputs their choice, the variable is assigned to the text. Then multiple if statements are checked, based on the choice chosen, before the next line is set. When this happens, the string assigned to the choice variable is set to null, to allow for the next choice to be made without causing any problems with the next choice being set to the old choice. <br>
 
 ## What challenges you faced in implementing the narrative logic
+The main challenge I had was starting to program this narrative adventure. I have made other similar games in the past so I started programming how I normally would but that didn't use any data structures and just included hard coding in each line. So to solve this problem I looked for documentation which kind of helped but it was difficult to find anything that was close enough to what I needed to do. After getting help and looking through an example, I was able to start implementing the narrative logic and then it was much easier to find helpful websites online as my future issues were much smaller than before. <br>
+Another challenge I faced was related to having multiple lines for one of the endings. For this I ended up deciding to add a separate list just for the ending text so that after the first line of that ending text is displayed, it goes through the list and displays the rest.
