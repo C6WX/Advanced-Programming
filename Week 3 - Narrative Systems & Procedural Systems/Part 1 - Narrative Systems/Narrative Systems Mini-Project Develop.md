@@ -1,2 +1,15 @@
 # Narrative Systems Mini-Project Development Log
 
+## Initial Plan and Objectives
+At first I thought the longest part of this task would be coming up with the story, not the development. So to get started with this narrative project, I planned out a story using a flowchart website. During the flowchart creation, I had to take a few steps back and simplify the story as I realised that I was getting ahead of myself and writing too many storylines. This resulted in a lot of the choices having to cause a failure instead of having their own stories.
+
+## Execution and Development
+When it came to developing the game, I had started programming it as I usually would, not realising that I had to make a much more complex version than just a lot of if statements as I had done in the past. This resulted in me using lists and dictionaries. The lists would store each line so that they could be called instead of hard coded in. After all the lines were coded in, they were then added to the list in order so that I could use a for integer loop to call each line in order. <br>
+To be able to program in the choices, I created a hasChoice boolean that was set to true on specific lines. When this variable is set to true, instead of pasting the next line, the code stops and wait for an input. That input then goes through a few if variables to determine what the next line will be.
+
+## Challenges and Adaptations
+I felt that the main challenge when developing this game was getting started. As AI usage was banned, I had to go back to using documentation which can be very helpful but with this task and what is required of it, it was difficult to find something that covered what was needed. I was able to find a website covering the simple version of this project but nothing using lists. To fix this problem, I was able to get help and have the starting code discussed. Once I had the starting code, it wasn't too difficult to continue and get the game working. <br>
+My next problem was how I was going to add in the choices. My first solution was having a variable that ran after each line was pasted that would check if the current line matched the lines I wanted it to stop at for a choice but I felt that that option would be similar to just hard coding in the lines as it would only stop at line numbers that I specified. This resulted in me adapting the idea to instead use variables on the lines themselves so that whenever the hasChoice boolean is set to true on a line, the game would stop and wait for an input.
+
+## Critical Reflection and Learned Lessons 
+Reflecting on this project, I now have a much greater understanding of the importance of not hard coding things in. For one, code looks a lot neater when using lists compared to being coded in tons of if statements, but also it is a lot easier to call things that have been added to a list than constantly writing out new lines of code for the same thing. This project has definitely opened my eyes to new ways to code narratives within text based games but also in any game with on screen text.
