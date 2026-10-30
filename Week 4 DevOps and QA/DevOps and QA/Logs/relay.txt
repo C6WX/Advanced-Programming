@@ -350,3 +350,6 @@
 [2026-10-30T15:29:52.426Z] [DEBUG] log Relay->Editor communication is unblocked
 [2026-10-30T15:29:52.427Z] [INFO] log Unity client connected with ID: editor-3544-bvkyxw (relay 1.0.12-build.100)
 [2026-10-30T15:29:52.429Z] [INFO] connection.established clientId=editor-3544-bvkyxw port=9001
+[2026-10-30T15:44:53.448Z] [INFO] log Shutdown request received from client editor-3544-bvkyxw
+[2026-10-30T15:44:53.450Z] [INFO] log Unity client requested immediate shutdown - shutting down now, reason: Shutdown requested by client
+[2026-10-30T15:44:53.451Z] [INFO] log Shutdown: Initiating graceful shutdown: Shutdown requested by client
