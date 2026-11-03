@@ -1,13 +1,14 @@
 # DevOps and QA Commentary 
 
-## How you collected player feedback and consent
+## How you collected player feedback and consent 
+Player consent was gathered using a custom user interface overlay at the start of the level, which paused the gameplay until the player choses wether to enable telemetry collection. Once the player has made their choice, the game resumes. Based on the player's choice, once the level is beat, the select variables will either do nothing or send their data to my Supabase table and create a new row of data for me to view. <br>
+To collect feedback, I created a google form with questions relating to gameplay experience, how the game performed and any bugs or comments. The first question on this form asks for the user's consent for their responses to be used to help with future updates. This form can be accessed by the player after the level is completed or whenever they pause. 
 
+## What telemetry or performance data was logged 
+The telemetry data I decided on tracking and storing were the player's completion time, the amount of jumps to complete the level and the amount of times the player died before completing the level. The completion time and the number of deaths gives insight into how difficult the level was for players to beat and the number of jumps shows how players perceive the game's physics and what obstacles they thought required jumping compared to just falling onto. Once the level is beaten by a player, all of these variables are sent to a Supabase table if the player consented to their gameplay data being saved.
 
-## What telemetry or performance data was logged
+## Tools, frameworks, or services used
+The telemetry pipeline was constructed in C# using Unity's UnityWebRequest API to transmit formatted JSON payloads directly to a PostgreSQL database hosted on Supabase. Supabase was chosen because its REST API allows lightweight data collection over HTTP without needing a custom server backend. The client authenticates using Supabase's API key and Bearer headers. To allow data logging from unauthenticated game clients while keeping the database safe, a Row Level Security policy was set up on the telemetry table. This policy enables anon users to perform INSERT operations with a true check condition, while blocking SELECT, UPDATE or DELETE requests. This approach kept the Unity implementation clean, fast and independent from heavy external analytics SDKs.
 
-
-## Tools, frameworks, or services used (e.g. Supabase, Unity Analytics, Unreal Insights)
-
-
-## How this data could inform QA and game improvements
-
+## How this data could inform QA and game improvements 
+Logging player stats provides clear numerical evidence to guide level balancing and bug fixing. Comparing completion times across players shows where levels drag or where intended skips break the pacing. Tracking death counts highlights specific sections where platforming difficulty spikes unexpectedly, helping identify poor camera placement, tight jump windows or unclear obstacle telegraphing. Jump count data reveals whether players are taking expected paths or button mashing through areas due to awkward physics tuning. Combining these metrics gives QA teams actionable insights to refine player movement, adjust obstacle spacing and smooth out the difficulty curve across levels without relying solely on subjective feedback.
