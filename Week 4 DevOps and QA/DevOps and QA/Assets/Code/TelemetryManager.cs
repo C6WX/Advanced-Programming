@@ -21,6 +21,13 @@ public class TelemetryManager : MonoBehaviour
     {
         if (player == null) return;
 
+        // Check if the player has granted consent
+        if (!player.playerConsent)
+        {
+            Debug.Log("Telemetry skipped: Player has not granted consent.");
+            return;
+        }
+
         // Read variables directly from the Player script
         float finalTime = player.GetElapsedTime();
         int deaths = player.deathCount;

@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -25,9 +26,16 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject consentScreen;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI finalTimeText;
 
+    [Header("Consent & Telemetry")]
+    public bool playerConsent = false;
+
+    private Scene m_Scene;
+    private string sceneName;
+    
     private Rigidbody2D rb;
     private float horizontalInput;
     private bool isGrounded;
@@ -39,6 +47,7 @@ public class Player : MonoBehaviour
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
     private bool isPaused = false;
+    private bool hasFinished = false; // Flag to prevent duplicate trigger calls
 
     // Track player stats for UI and database telemetry
     public int deathCount = 0;
@@ -46,9 +55,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        // Reset time scale in case scene was reloaded while paused
-        Time.timeScale = 1f;
-
         // Grab the Rigidbody attached to the player
         rb = GetComponent<Rigidbody2D>();
 
@@ -58,6 +64,27 @@ public class Player : MonoBehaviour
         // Ensure UI panels are hidden when starting the level
         if (victoryPanel != null) victoryPanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
+        
+        // Displays the consent screen only when the game awakes to level one
+        m_Scene = SceneManager.GetActiveScene();
+        sceneName = m_Scene.name;
+        
+        if (sceneName == "Level1" && consentScreen != null)
+        {
+            consentScreen.SetActive(true);
+            
+            // Freeze physics and time when starting Level 1 for consent
+            isPaused = true;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            if (consentScreen != null) consentScreen.SetActive(false);
+            
+            // Reset time scale for non-consent scenes
+            isPaused = false;
+            Time.timeScale = 1f;
+        }
     }
 
     private void Update()
@@ -161,13 +188,55 @@ public class Player : MonoBehaviour
     {
         isPaused = !isPaused;
 
+        // Only show pause panel if consent screen is NOT active
         if (pausePanel != null)
         {
-            pausePanel.SetActive(isPaused);
+            bool showPausePanel = isPaused && (consentScreen == null || !consentScreen.activeSelf);
+            pausePanel.SetActive(showPausePanel);
         }
 
         // Freeze physics and time when paused
         Time.timeScale = isPaused ? 0f : 1f;
+    }
+
+    // Call this from the Consent Screen's "Accept" UI Button
+    public void OnConsentAccepted()
+    {
+        playerConsent = true;
+
+        if (consentScreen != null)
+        {
+            consentScreen.SetActive(false);
+        }
+
+        // Unpause gameplay time when consent is accepted
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+    }
+
+    // Call this from the Consent Screen's "Decline" UI Button
+    public void OnConsentDeclined()
+    {
+        playerConsent = false;
+
+        if (consentScreen != null)
+        {
+            consentScreen.SetActive(false);
+        }
+
+        // Unpause gameplay time when consent is declined
+        isPaused = false;
+        Time.timeScale = 1f;
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
     }
 
     public void Respawn()
@@ -195,15 +264,19 @@ public class Player : MonoBehaviour
         }
         else if (other.CompareTag("Finish"))
         {
+            // Stop if finish trigger has already been processed once
+            if (hasFinished) return;
+            hasFinished = true;
+
             isTimerRunning = false;
 
-            // Activate panel first
+            // Activate victory panel
             if (victoryPanel != null)
             {
                 victoryPanel.SetActive(true);
             }
 
-            // Update final time text second
+            // Update final time text display
             if (finalTimeText != null)
             {
                 UpdateTimerDisplay(finalTimeText, elapsedTime);
