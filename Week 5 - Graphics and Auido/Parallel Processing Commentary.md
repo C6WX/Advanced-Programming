@@ -1,15 +1,16 @@
 # Parallel Processing Commentary 
 
 ## How multithreading or jobs were implemented
-
+To distribute the computational workload away from Unity's main game thread and prevent frame drops, I implemented a data oriented parallel processing pipeline using Unity's C# Job System. I structured the core computation inside an IJobParallelFor struct named ExtractRedJob. When executed, the system slices the image's total pixel count into discrete chunks, automatically distributing them across all available CPU worker threads. <br>
+To ensure strict thread safety and avoid race conditions without incurring locking overhead, I adopted a parallel map patten. Instead of having multiple cores compete to update a single global counter, each thread writes its calculated red channel value directly to its own unique index within a separate NativeArray<long>. Once the background worker threads complete via jobHandle.Complete(), a lightweight sequential pass accumulates the final grand total. Furthermore, managing memory with NativeArray using Allocator.TempJob ensured zero-allocation operations, entirely eliminating Garbage Collection spikes during runtime.
 
 ## What benchmarking or telemetry data was collected
-
+To rigorously evaluate performance, I integrated a high resolution Stopwatch to measure the precise execution duration of the parallel jobs in milliseconds. I collected telemetry across various image resolutions, ranging from standard test textures to heavy 4K assets containing 8.3 million pixels. <br>
+The data recorded the exact time taken from scheduling the job handle to its complete execution on background threads. By comparing these metrics, I could clearly observe how multithreading scales when processing dense image buffers compared to naive single threaded loops. Logging individual file names, total red sums and elapsed milliseconds directly to the Unity Console also provided an efficient feedback loop for validating correctness across batch processed directories.
 
 ## Tools, frameworks, or APIs used (e.g. Unity Burst, Unreal ParallelFor)
-
+This project relied heavily on Unity's high performance data oriented technology stack. The Unity C# Job System provided the multi threaded execution framework to safely harness multi-core CPU architectures. The Unity Burst Compiler leveraged LLVM technology to compile C# job structs directly into highly optimised native machine code, stripping away managed runtime overhead. The Collections Package was used for unmanaged, low level memory management, allowing zero-copy access to texture data buffers. Finally, System.Diagnostics and System.IO utilised Stopwatch for accurate performance profiling and directory/file APIs to dynamically scan the textures file for batch processing.
 
 ## How performance results could inform optimisation
-
-
-
+The benchmarking data highlights clear avenues for future optimisation in larger systems. Since the parallel job handles millions of pixels efficiently on background threads, similar patterns can be applied to real time procedural generation, pixel manipulation or computer vision tasks in games without harming frame rates. <br>
+Future optimisations could involve experimenting with different batch sizes in jobHandle.Schedule(totalPixels, batchSize) to find the optimal sweet spot for CPU cache line utilisation. Additionally, leaning further into the Burst-specific vector intrinsics could accelerate mathematical operations per pixel, pushing hardware performance even further across modern multi-core architectures. This architectural paradigm shift underscores teh immense value of data oriented design principles when handling intensive computational workloads in real time interactive applications.
