@@ -1,1 +1,5 @@
 https://www.youtube.com/watch?v=vpjRoGy7kCI
+
+Create a chatbot ai with a custom personality (as if its an in-game character)
+
+Maybe make multiple ai's with different personality's
