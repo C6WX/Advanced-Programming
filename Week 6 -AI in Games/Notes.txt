@@ -3,3 +3,36 @@ https://www.youtube.com/watch?v=vpjRoGy7kCI
 Create a chatbot ai with a custom personality (as if its an in-game character)
 
 Maybe make multiple ai's with different personality's
+
+
+
+
+### Resuming Your Project After Restarting Your PC
+
+* **1. Start Ollama (if not already running)**
+  * Open the Start menu and launch the **Ollama** app, or open Command Prompt / PowerShell and run `ollama serve` (keep that terminal window open while testing).
+  * Confirm it is running by visiting `http://localhost:11434` in your browser (it should say `Ollama is running`) or running `ollama list` in a terminal.
+
+* **2. Verify Your Model Is Available**
+  * Run `ollama list` in your terminal to confirm `llama3.2:3b` is listed.
+  * If `llama3.2:3b` is missing, run `ollama pull llama3.2:3b` to download it again.
+
+* **3. Reopen Your Unity Project**
+  * Open **Unity Hub**, go to the **Projects** tab, and open your project (`Artificial Intelligence Integration`).
+  * Confirm your scene (`SampleScene`), `SimpleOllamaNPC` script, and UI elements load properly.
+
+* **4. Enter Play Mode and Test Dialogue**
+  * Click **Play** at the top center of the Unity Editor.
+  * Select an NPC personality from the dropdown, type a message into `InputField (TMP)`, and click **Send** (or press **Enter**).
+  * Verify the reply appears in the `Scroll View` and scrolls cleanly without errors in the **Console**.
+
+* **5. Check Your Saved CSV Telemetry File**
+  * Open the Unity **Console** (`Ctrl + Shift + C`) after starting Play mode to find the `[SimpleOllamaNPC] Telemetry CSV path: ...` line.
+  * Navigate to that folder (`Application.persistentDataPath`) in File Explorer to open or analyze your `.csv` telemetry logs.
+
+
+
+
+
+Chat & Grab Your CSV: Press Play, send a few messages, and check the Console (Ctrl + Shift + C) for the line:[SimpleOllamaNPC] CSV Telemetry saved at: ...
+Open that .csv file in Excel to view your logged model/version, inference times, token counts, and hardware specs.
